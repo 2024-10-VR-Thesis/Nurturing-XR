@@ -8,4 +8,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/AmbienteSala.unity
     guid: 99c9720ab356a0642a771bea13969a05
-  m_configObjects: {}
+  m_configObjects:
+    com.unity.xr.arfoundation.simulation_settings: {fileID: 11400000, guid: bbeb9a32cf2489c48999443e81ea3934,
+      type: 2}
+    com.unity.xr.openxr.settings4: {fileID: 11400000, guid: 3f471a598a889c24a8747228e945439f,
+      type: 2}
