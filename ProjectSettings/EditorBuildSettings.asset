@@ -8,4 +8,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/AmbienteSala.unity
     guid: 99c9720ab356a0642a771bea13969a05
-  m_configObjects: {}
+  m_configObjects:
+    Unity.XR.Oculus.Settings: {fileID: 11400000, guid: f4e80943fd3a7ae4383474794162b6e7,
+      type: 2}
+    Unity.XR.OpenVR.Settings: {fileID: 11400000, guid: 44335bffc2754de4db481d93f1904093,
+      type: 2}
+    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 77e8de074e7119b49b09b81c793216bf,
+      type: 2}
