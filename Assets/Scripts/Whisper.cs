@@ -17,6 +17,7 @@ using System;
 using Unity.VisualScripting;
 using System.Security.Cryptography;
 using Scripts.Conversation;
+using Valve.VR;
 
 namespace Samples.Whisper
 {
@@ -40,6 +41,7 @@ namespace Samples.Whisper
         public DrawingProgress drawingProgress;
         private string question;
         public Conversation conversation;
+        public SteamVR_Action_Boolean triggerAction;
 
 
         private void Start()
@@ -168,6 +170,16 @@ namespace Samples.Whisper
             else if (Input.GetKeyUp(KeyCode.T))
             {
                 Debug.Log("Tecla T no presionada");
+                EndRecording();
+            }
+            if (triggerAction.GetStateDown(SteamVR_Input_Sources.Any))
+            {
+                Debug.Log("Tecla Trigger presionada");
+                StartRecording();
+            }
+            else if (triggerAction.GetStateUp(SteamVR_Input_Sources.Any))
+            {
+                Debug.Log("Tecla Trigger no presionada");
                 EndRecording();
             }
         }
