@@ -16,7 +16,7 @@ namespace Scripts.Conversation
         public int bad_v { get; set; }
         public int soBad_v { get; set; }
 
-private Conversation()
+        private Conversation()
         {
         }
 
@@ -35,14 +35,14 @@ private Conversation()
 
         void Start()
         {
-                StartGame();
+            StartGame();
         }
         void Update()
         {
             if (!playing)
-                {
-                    EndGame();
-                }
+            {
+                EndGame();
+            }
         }
 
         void StartGame()
