@@ -50,7 +50,7 @@ namespace Scripts.TexToSpeech
             VoiceId = VoiceId.Ivy,
             OutputFormat = OutputFormat.Mp3
         };
-            var credentials = new BasicAWSCredentials("", "");
+            var credentials = new BasicAWSCredentials("","");
             var client = new AmazonPollyClient(credentials, RegionEndpoint.USEast1);
         var response = await client.SynthesizeSpeechAsync(request);
         WriteintoFile(response.AudioStream);
@@ -87,6 +87,7 @@ namespace Scripts.TexToSpeech
     public class TextToSpeechData
     {
         public string EN; // "EN" is the key for English text
+        public string ES;
     }
 
 }

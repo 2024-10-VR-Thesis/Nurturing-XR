@@ -2,25 +2,35 @@ using UnityEngine;
 using UnityEngine.Events;
 using Samples.Whisper;
 using Scripts.Conversation;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Diagnostics;
 
 [RequireComponent(typeof(Collider))]
 [RequireComponent(typeof(Rigidbody))]
 public class EyeInteractable : MonoBehaviour
 {
     public bool IsHovered { get; set; }
+    public bool AskedAlready { get; set; }
+    public string objectName;
 
     public UnityEvent<GameObject> OnObjectHover;
 
     [SerializeField] Whisper whisper;
     [SerializeField] Conversation conversation;
 
+    private void Start()
+    {
+        objectName = gameObject.name;
+        AskedAlready = false;
+    }
+
     private async Task HandleHoverAsync()
     {
-        if (!(conversation.talking || conversation.listening) && whisper.scores.Last() > 7)
+        if (!(conversation.talking || conversation.listening) && whisper.scores.Last() >= 7 && !AskedAlready)
         {
+            conversation.talking = true;
+            
             lock (whisper.scores)
             {
                 if (whisper.scores.Any())
@@ -30,9 +40,9 @@ public class EyeInteractable : MonoBehaviour
             }
 
             OnObjectHover?.Invoke(gameObject);
-            string name = gameObject.name;
-            conversation.talking = true;
-            await whisper.GenerateImaginativeQuestion(name, Whisper.QuestionMode.OBJECT);
+            AskedAlready = true;
+            await Task.Delay(15000);
+            await whisper.GenerateImaginativeQuestion(objectName, Whisper.QuestionMode.OBJECT);
         }
     }
 

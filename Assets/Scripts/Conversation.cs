@@ -16,7 +16,9 @@ namespace Scripts.Conversation
         public int bad_v { get; set; }
         public int soBad_v { get; set; }
 
-private Conversation()
+        public List<string> askedObjects = new List<string>();
+
+        private Conversation()
         {
         }
 

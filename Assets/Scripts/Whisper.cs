@@ -17,12 +17,18 @@ using System;
 using Unity.VisualScripting;
 using System.Security.Cryptography;
 using Scripts.Conversation;
+using OpenAI;
+using System.Threading.Tasks;
+using TMPro;
 
 namespace Samples.Whisper
 {
     public class Whisper : MonoBehaviour
     {
         [SerializeField] private Text message;
+        
+        public TMP_Text questionTvText;
+        public TMP_Text scoreTvText;
 
         private readonly string fileName = "output.wav";
         private readonly int duration = 5;
@@ -31,7 +37,7 @@ namespace Samples.Whisper
         private OpenAIApi openai = new OpenAIApi();
         private OpenAIApi openAI = new OpenAIApi();
         private List<ChatMessage> messages = new List<ChatMessage>();
-        private string prompt = "Act as 5 y/o child. Dont break character. Dont ever mention you are an AI model. Create an imaginative question based on an object or a previous answer, just the question. ";
+        private string prompt = "Act as 5 y/o child. Dont break character. Dont ever mention you are an AI model. Create an imaginative question based on an object or a previous answer, just the question.";
         private string scorePrompt = "Score the answer given to a question from 1-10, dont write words just the score based on a 5 y/o child pov and if the answer and question are in the same context. ";
         public List<int> scores = new List<int>();
         public TextToSpeech tts;
@@ -52,7 +58,7 @@ namespace Samples.Whisper
 
         public void StartRecording()
         {
-            conversation.listening = true;
+            
 #if !UNITY_WEBGL
             clip = Microphone.Start(Microphone.devices[0], false, duration, 44100);
 #endif
@@ -63,6 +69,7 @@ namespace Samples.Whisper
 
 #if !UNITY_WEBGL
             Microphone.End(null);
+            conversation.listening = false;
 #endif
 
             byte[] data = SaveWav.Save(fileName, clip);
@@ -73,17 +80,17 @@ namespace Samples.Whisper
             await scoreAnswer(transcribedText);
 
             // Enviar la transcripción a ChatGPT para obtener la pregunta imaginativa
-            if (scores.Count > 0 && scores.Last() < 7)
+            if (scores.Count > 0 && scores.Last() < 7 )
             {
                 conversation.talking = true;
+                //TODO: Wait 20 sec
+                await Task.Delay(20000);
                 await GenerateImaginativeQuestion(transcribedText, QuestionMode.ASK_AGAIN);
-                conversation.listening = false;
                 Debug.Log("BAD, TRY AGAIN");
             }
-            else if (scores.Count > 0 && scores.Last() > 7)
+            else if (scores.Count > 0 && scores.Last() >= 7)
             {
                 messages.Clear();
-                conversation.listening = false;
             }
 
         }
@@ -152,7 +159,10 @@ namespace Samples.Whisper
                 messages.Add(chatResponse);
                 string text = chatResponse.Content;
                 question = text;
+                questionTvText.text = "Question: " + text;
+                scoreTvText.text = "Score: ";
                 tts.texttospeech(text);
+                conversation.listening = true;
             }
 
             
@@ -168,6 +178,21 @@ namespace Samples.Whisper
             else if (Input.GetKeyUp(KeyCode.T))
             {
                 Debug.Log("Tecla T no presionada");
+                EndRecording();
+            }
+
+
+            // TODO: poner modo listening
+            //if (conversation.listening) { }
+
+            if (OVRInput.GetDown(OVRInput.RawButton.A))
+            {
+                Debug.Log("Controller button pressed (Start Recording)");
+                StartRecording();
+            }
+            else if (OVRInput.GetUp(OVRInput.RawButton.A))
+            {
+                Debug.Log("Controller button released (End Recording)");
                 EndRecording();
             }
         }
@@ -207,6 +232,7 @@ namespace Samples.Whisper
                         rating = 1;
                     }
                 }
+                scoreTvText.text = $"Score: {rating}/10";
                 scores.Add(rating);
                 animationsHandler.setRating(rating);
 
