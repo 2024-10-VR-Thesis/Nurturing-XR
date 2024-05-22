@@ -18,14 +18,16 @@ namespace Scripts.TexToSpeech
     public string introSpeak;
     public Conversation.Conversation conversation;
     public AnimationsHandler animationsHandler;
+    public MinuteHandMovement minuteHandMovement;
 
-    void Start()
+    async void Start()
     {
         string path = "Assets/Static speech/tutorial.json";
         string jsonString = File.ReadAllText(path);
         TextToSpeechData data = JsonUtility.FromJson<TextToSpeechData>(jsonString);
+        await Task.Delay(15000);
         introSpeak = data.EN;
-        texttospeech(introSpeak);
+        texttospeech(introSpeak, true);
         //introSpeak = null;
     }
 
@@ -38,7 +40,7 @@ namespace Scripts.TexToSpeech
         introSpeak = text;
     }
 
-    public async void texttospeech(string speak)
+    public async void texttospeech(string speak, bool tutorial = false)
     {
         //conversation.talking = true;            
         string speechCopy = speak;
@@ -50,8 +52,8 @@ namespace Scripts.TexToSpeech
             VoiceId = VoiceId.Ivy,
             OutputFormat = OutputFormat.Mp3
         };
-            var credentials = new BasicAWSCredentials("","");
-            var client = new AmazonPollyClient(credentials, RegionEndpoint.USEast1);
+        var credentials = new BasicAWSCredentials("", "");
+        var client = new AmazonPollyClient(credentials, RegionEndpoint.USEast1);
         var response = await client.SynthesizeSpeechAsync(request);
         WriteintoFile(response.AudioStream);
         using (var www = UnityWebRequestMultimedia.GetAudioClip($"{Application.persistentDataPath}/audio.mp3", AudioType.MPEG))
@@ -65,7 +67,12 @@ namespace Scripts.TexToSpeech
             await Task.Delay((int)(clip.length * 1000)); // Convert clip length from seconds to milliseconds
             conversation.talking = false;
             
+            if (tutorial)
+            {
+               minuteHandMovement.StartTime();
             }
+            
+        }
     }
 
     private void WriteintoFile(Stream stream)

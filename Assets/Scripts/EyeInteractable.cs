@@ -5,6 +5,7 @@ using Scripts.Conversation;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Diagnostics;
+using TMPro;
 
 [RequireComponent(typeof(Collider))]
 [RequireComponent(typeof(Rigidbody))]
@@ -18,6 +19,8 @@ public class EyeInteractable : MonoBehaviour
 
     [SerializeField] Whisper whisper;
     [SerializeField] Conversation conversation;
+
+    public QuestionCountdown questionCountdown;
 
     private void Start()
     {
@@ -41,6 +44,8 @@ public class EyeInteractable : MonoBehaviour
 
             OnObjectHover?.Invoke(gameObject);
             AskedAlready = true;
+            //TODO: no hacer en primera vez
+            StartCoroutine(questionCountdown.UpdateTime());
             await Task.Delay(15000);
             await whisper.GenerateImaginativeQuestion(objectName, Whisper.QuestionMode.OBJECT);
         }

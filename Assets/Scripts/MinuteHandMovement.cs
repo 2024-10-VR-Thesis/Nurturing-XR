@@ -7,8 +7,7 @@ using Scripts.Conversation;
 public class MinuteHandMovement : MonoBehaviour
 {
     Conversation conversation;
-    public float totalRotationAngle = 360f;
-    public float durationMinutes = 5f;
+    public float durationMinutes;
 
     private float rotationSpeed;
     private float durationSeconds;
@@ -16,26 +15,27 @@ public class MinuteHandMovement : MonoBehaviour
 
     public Transform pivotPoint;
 
+    private bool start = false;
+
     private void Start()
     {
         durationSeconds = durationMinutes * 60;
-        rotationSpeed = totalRotationAngle / durationSeconds;
+        rotationSpeed = 360f / durationSeconds;
     }
 
     private void Update()
     {
-
-        if (elapsedTime < durationSeconds)
+        if (start && elapsedTime < durationSeconds)
         {
             transform.RotateAround(pivotPoint.position, Vector3.left, rotationSpeed * Time.deltaTime);
             elapsedTime += Time.deltaTime;
         }
-        /*
-        else
-        {
-            conversation.playing = false;
-        }
-        */
+    }
+
+    public void StartTime()
+    {
+       start = true;
+
     }
 
 
