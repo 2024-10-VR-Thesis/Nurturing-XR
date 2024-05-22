@@ -58,6 +58,7 @@ namespace Samples.Whisper
             //drawingProgress = GetComponent<DrawingProgress>();
             //GenerateImaginativeQuestion("Pillow", QuestionMode.OBJECT);
             //Debug.Log("Inicio");
+            scores.Add(8);
             contadorMusica = 0;
         }
 
