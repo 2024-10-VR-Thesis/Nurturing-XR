@@ -25,7 +25,7 @@ namespace Scripts.TexToSpeech
         string path = "Assets/Static speech/tutorial.json";
         string jsonString = File.ReadAllText(path);
         TextToSpeechData data = JsonUtility.FromJson<TextToSpeechData>(jsonString);
-        await Task.Delay(15000);
+        await Task.Delay(17000);
         introSpeak = data.EN;
         texttospeech(introSpeak, true);
         //introSpeak = null;
@@ -42,7 +42,7 @@ namespace Scripts.TexToSpeech
 
     public async void texttospeech(string speak, bool tutorial = false)
     {
-        //conversation.talking = true;            
+        //conversation.talking = true;
         string speechCopy = speak;
         speak = null;
         var request = new SynthesizeSpeechRequest()
@@ -65,13 +65,12 @@ namespace Scripts.TexToSpeech
             audioSource.Play();
 
             await Task.Delay((int)(clip.length * 1000)); // Convert clip length from seconds to milliseconds
-            conversation.talking = false;
-            
-            if (tutorial)
-            {
-               minuteHandMovement.StartTime();
-            }
-            
+            conversation.talking = false;   
+        }
+        
+        if (tutorial)
+        {
+            minuteHandMovement.StartTime();
         }
     }
 

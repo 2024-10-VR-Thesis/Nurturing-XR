@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 public class AudioManager : MonoBehaviour
 {
     [SerializeField] AudioSource musicSource;
+    [SerializeField] AudioSource musicSource2;
     public AudioClip backgroundMusic;
     public AudioClip midMusic;
     public AudioClip stressedMusic;
@@ -26,7 +27,7 @@ public class AudioManager : MonoBehaviour
     void Update()
     {
 
-        if (!musicSource.isPlaying)
+        if (!musicSource.isPlaying && musicSource.clip != tutorial)
         {
             musicSource.Play();
         }
@@ -36,27 +37,33 @@ public class AudioManager : MonoBehaviour
 
         if (cont <= 0)
         {
-            musicSource.clip = backgroundChangeMusic;
-            musicSource.Play();
-            await Task.Delay(3000);
-            musicSource.clip = backgroundMusic;
-            musicSource.Play();
+            if (musicSource.clip != backgroundMusic)
+            {
+                musicSource2.clip = backgroundChangeMusic;
+                musicSource2.Play();
+                musicSource.Stop();
+                await Task.Delay(3000);
+                musicSource.clip = backgroundMusic;
+                musicSource.Play();
+            }
         }
         else if (cont == 1)
         {
-            musicSource.clip = midChangeMusic;
-            musicSource.Play();
-            await Task.Delay(3000);
+            musicSource2.clip = midChangeMusic;
+            musicSource2.Play();
+            await Task.Delay(3500);
             musicSource.clip = midMusic;
             musicSource.Play();
+            musicSource2.Stop() ;
         }
         else
         {
-            musicSource.clip = stressedChangeMusic;
-            musicSource.Play();
-            await Task.Delay(3000);
+            musicSource2.clip = stressedChangeMusic;
+            musicSource2.Play();
+            await Task.Delay(2500);
             musicSource.clip = stressedMusic;
             musicSource.Play();
+            musicSource2.Stop();
         }
     }
 }

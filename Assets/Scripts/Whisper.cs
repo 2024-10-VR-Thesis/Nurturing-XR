@@ -51,13 +51,12 @@ namespace Samples.Whisper
         public AudioManager audioManager;
         public int contadorMusica;
 
-
-
         private async void Start()
         {
             //drawingProgress = GetComponent<DrawingProgress>();
             //GenerateImaginativeQuestion("Pillow", QuestionMode.OBJECT);
             //Debug.Log("Inicio");
+            //await Task.Delay(15000);
             scores.Add(8);
             contadorMusica = 0;
         }
@@ -92,21 +91,33 @@ namespace Samples.Whisper
             {
                 scoreTvText.text += ", Try again!"; 
                 conversation.talking = true;
+                contadorMusica++;
+                audioManager.changeTrack(contadorMusica);
+                await Task.Delay(3000);
+                resetTvtTexts();
                 StartCoroutine(questionCountdown.UpdateTime());
                 await Task.Delay(15000);
                 await GenerateImaginativeQuestion(transcribedText, QuestionMode.ASK_AGAIN);
-                conversation.listening = false;
                 Debug.Log("BAD, TRY AGAIN");
-                contadorMusica++;
-                audioManager.changeTrack(contadorMusica);
+
             }
             else if (scores.Count > 0 && scores.Last() > 7)
             {
+                scoreTvText.text += ", Good answer!";
+
+                drawingProgress.increaseIndex();
+
                 messages.Clear();
                 contadorMusica = 0;
-                audioManager.changeTrack(contadorMusica);
-            }
+                audioManager.changeTrack(contadorMusica); // TODO: handle win case
 
+                if (drawingProgress.GetDrawnObjects() < 4)
+                {
+                    await Task.Delay(3000);
+                    resetTvtTexts();
+                    questionTvText.text = "Question: (Please look arond to find an object)";
+                }  
+            }
         }
 
         public async Task<string> GetAudioTranscription(byte[] audioData)
@@ -142,7 +153,6 @@ namespace Samples.Whisper
         public async Task GenerateImaginativeQuestion(string transcribedText, QuestionMode mode) //no es necesariamente transcripcion, tambien es objeto
         {
             Debug.Log("--------------------LLEGO PREGUNTA------------------------");
-            resetTvtTexts();
            
             ChatMessage newMessage = new ChatMessage();
             //newMessage.Content = transcribedText;
@@ -179,32 +189,30 @@ namespace Samples.Whisper
             conversation.listening = true;
             }
 
+            answerTvText.text = "Your answer: (Press A to record)";
+
         }
 
         async void Update()
         {
-            if (Input.GetKeyDown(KeyCode.T))
+            if (Input.GetKeyDown(KeyCode.T) && conversation.listening)
             {
                 Debug.Log("Tecla T presionada");
                 StartRecording();
             }
-            else if (Input.GetKeyUp(KeyCode.T))
+            else if (Input.GetKeyUp(KeyCode.T) && conversation.listening)
             {
                 Debug.Log("Tecla T no presionada");
                 await Task.Delay(1000);
                 EndRecording();
             }
 
-
-            // TODO: poner modo listening
-            //if (conversation.listening) { }
-
-            if (OVRInput.GetDown(OVRInput.RawButton.A))
+            if (OVRInput.GetDown(OVRInput.RawButton.A) && conversation.listening)
             {
                 Debug.Log("Controller button pressed (Start Recording)");
                 StartRecording();
             }
-            else if (OVRInput.GetUp(OVRInput.RawButton.A))
+            else if (OVRInput.GetUp(OVRInput.RawButton.A) && conversation.listening)
             {
                 Debug.Log("Controller button released (End Recording)");
                 await Task.Delay(1000);
@@ -248,17 +256,41 @@ namespace Samples.Whisper
                     }
                 }
                 scoreTvText.text = $"Score: {rating}/10";
+                controllAnswersValues(rating);
                 scores.Add(rating);
+
                 animationsHandler.setRating(rating);
 
                 Debug.Log("Calificación obtenida: " + scores.Last());
 
-                if (scores.Last() >= 7) //todo: ver si ajustamos rangos
-                {
-                    drawingProgress.increaseIndex();
-                }
                 //messages.Clear()
             }
+        }
+
+        public void controllAnswersValues(double score)
+        {
+           if(score < 4)
+            {
+                conversation.soBad_v++;
+                if(conversation.soBad_v == 3)
+                {
+                    conversation.playing = false;
+                }
+            }else if(score >= 4 && score <= 7)
+            {
+                conversation.bad_v++;
+                if(conversation.bad_v == 2)
+                {
+                    conversation.soBad_v++;
+                    conversation.bad_v = 0;
+                }
+            }else if (score > 7)
+            {
+                if (conversation.soBad_v > 0) { conversation.soBad_v--; }
+                else if (conversation.bad_v > 0) { conversation.bad_v--; }
+            }
+
+
         }
 
         public enum QuestionMode

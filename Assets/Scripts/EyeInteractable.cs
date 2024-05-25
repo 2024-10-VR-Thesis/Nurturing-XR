@@ -21,6 +21,9 @@ public class EyeInteractable : MonoBehaviour
     [SerializeField] Conversation conversation;
 
     public QuestionCountdown questionCountdown;
+    public MinuteHandMovement minuteHandMovement;
+
+    private bool gameStarted;
 
     private void Start()
     {
@@ -30,7 +33,7 @@ public class EyeInteractable : MonoBehaviour
 
     private async Task HandleHoverAsync()
     {
-        if (!(conversation.talking || conversation.listening) && whisper.scores.Last() >= 7 && !AskedAlready)
+        if (!(conversation.talking || conversation.listening) && whisper.scores.Last() > 7 && !AskedAlready && gameStarted)
         {
             conversation.talking = true;
             
@@ -53,6 +56,7 @@ public class EyeInteractable : MonoBehaviour
 
     private void Update()
     {
+        gameStarted = minuteHandMovement.GetStart();
         if (IsHovered)
         {
             _ = HandleHoverAsync(); // Fire and forget async method

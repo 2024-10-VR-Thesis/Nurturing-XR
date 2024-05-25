@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 using Scripts.Conversation;
+using TMPro;
 
 public class MinuteHandMovement : MonoBehaviour
 {
@@ -15,7 +16,9 @@ public class MinuteHandMovement : MonoBehaviour
 
     public Transform pivotPoint;
 
-    private bool start = false;
+    private bool start = false; 
+
+    public TMP_Text questionTvText;
 
     private void Start()
     {
@@ -30,13 +33,21 @@ public class MinuteHandMovement : MonoBehaviour
             transform.RotateAround(pivotPoint.position, Vector3.left, rotationSpeed * Time.deltaTime);
             elapsedTime += Time.deltaTime;
         }
+        if(elapsedTime >= durationSeconds)
+        {
+            conversation.playing = false;
+        }
     }
 
     public void StartTime()
     {
-       start = true;
+        start = true;
+        questionTvText.text = "Question: (Please look around to find an object)";
 
     }
 
-
+    public bool GetStart()
+    {
+        return start;
+    }
 }

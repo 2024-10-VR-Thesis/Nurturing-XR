@@ -6,13 +6,12 @@ using TMPro;
 public class QuestionCountdown : MonoBehaviour
 {
     public TMP_Text countdownTvText;
-    private float countdownTime = 15f;
+    private int countdownTime = 15;
     private bool questionReady { get; set; }
 
     // Start is called before the first frame update
     void Start()
     {
-        countdownTvText.text = $"Question: (In about {countdownTime} secs)";
         questionReady = false ;
     }
 
@@ -30,10 +29,10 @@ public class QuestionCountdown : MonoBehaviour
             yield return new WaitForSeconds(1);
             countdownTime -= 1;
 
-            countdownTvText.text = $"Question: (In {countdownTime} secs)";
+            countdownTvText.text = $"Question: (In about {countdownTime} sec" + (countdownTime == 1 ? "" : "s") + ")";
         }
        
-        countdownTime = 15f;
+        countdownTime = 15;
     }
     
 }
