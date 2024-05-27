@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Diagnostics;
 using TMPro;
+using Scripts.DrawingProgress;
 
 [RequireComponent(typeof(Collider))]
 [RequireComponent(typeof(Rigidbody))]
@@ -23,6 +24,8 @@ public class EyeInteractable : MonoBehaviour
     public QuestionCountdown questionCountdown;
     public MinuteHandMovement minuteHandMovement;
 
+    public DrawingProgress drawingProgress;
+
     private bool gameStarted;
 
     private void Start()
@@ -33,7 +36,7 @@ public class EyeInteractable : MonoBehaviour
 
     private async Task HandleHoverAsync()
     {
-        if (!(conversation.talking || conversation.listening) && whisper.scores.Last() > 7 && !AskedAlready && gameStarted)
+        if (!(conversation.talking || conversation.listening) && whisper.scores.Last() > 7 && !AskedAlready && gameStarted && !whisper.askedAlready)
         {
             conversation.talking = true;
             
@@ -47,9 +50,10 @@ public class EyeInteractable : MonoBehaviour
 
             OnObjectHover?.Invoke(gameObject);
             AskedAlready = true;
-            //TODO: no hacer en primera vez
+
+            whisper.askedAlready = true;
             StartCoroutine(questionCountdown.UpdateTime());
-            await Task.Delay(15000);
+            await Task.Delay(20000);
             await whisper.GenerateImaginativeQuestion(objectName, Whisper.QuestionMode.OBJECT);
         }
     }

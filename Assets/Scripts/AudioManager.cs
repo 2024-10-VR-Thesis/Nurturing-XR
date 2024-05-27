@@ -24,7 +24,7 @@ public class AudioManager : MonoBehaviour
     {
         musicSource.clip = tutorial;
         musicSource.Play();
-        await Task.Delay(15000);
+        await Task.Delay(20000);
         musicSource.clip = backgroundMusic;
         musicSource.Play();
     }

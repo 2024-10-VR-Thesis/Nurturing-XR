@@ -30,7 +30,7 @@ using System.Linq;
 
 
 
-        if (rating > 7) {
+        if (rating <= 7) {
             if (conversation.soBad_v > 0)
             {
                 conversation.soBad_v--;

@@ -4,42 +4,47 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using Samples.Whisper;
+using System.Linq;
+using System.Threading.Tasks;
 
 public class Endgamecanvas : MonoBehaviour
 {
     public Conversation conversation;
     public Whisper whisper;
-    AudioManager audio;
+    public AudioManager audio;
+    public TMP_Text questionTvText;
+    public TMP_Text answerTvText;
     public TMP_Text scoreTvText;
+    public TMP_Text endgameTvText;
     public int razon;
     private int contador;
    
     // Start is called before the first frame update
-    public Behaviour endgameCanvas;
     void Start()
     {
-        endgameCanvas.enabled = false;
-        scoreTvText.text = "Hola Mundo";
+        endgameTvText.text = "";
         contador = 0;
         razon = 0;
     }
 
     // Update is called once per frame
-    void Update()
+    async void Update()
     {
-        if (!conversation.playing&&contador==0)
+        if (!conversation.playing && contador==0)
         {
             audio.endgameVoice(razon);
-            int calificacion = 0;
-            endgameCanvas.enabled = true;
-            Debug.Log(whisper.scores.Count);
-            for(int i = 0; i < whisper.scores.Count; i++)
-            {
-                calificacion += whisper.scores[i];
-            }
-            double promedio = calificacion/ whisper.scores.Count;
-            scoreTvText.text = "The End \n  \n This was your conversation score: "+promedio;
+            double promedio = whisper.scores.Average();
+            await Task.Delay(5000);
+            DeleteAllTexts();
+            endgameTvText.text = "The End \n  \n Your score average was: " + promedio;
             contador++;
         }
+    }
+
+    private void DeleteAllTexts()
+    {
+        questionTvText.text = "";
+        answerTvText.text = "";
+        scoreTvText.text = "";
     }
 }

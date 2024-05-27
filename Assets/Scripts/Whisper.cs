@@ -51,13 +51,13 @@ namespace Samples.Whisper
         public AudioManager audioManager;
         public int contadorMusica;
         public Endgamecanvas endgamecanvas;
+        public bool askedAlready = false;
 
-        private async void Start()
+        private void Start()
         {
             //drawingProgress = GetComponent<DrawingProgress>();
             //GenerateImaginativeQuestion("Pillow", QuestionMode.OBJECT);
             //Debug.Log("Inicio");
-            //await Task.Delay(15000);
             scores.Add(8);
             contadorMusica = 0;
         }
@@ -84,9 +84,7 @@ namespace Samples.Whisper
             string transcribedText = await GetAudioTranscription(data);
             answerTvText.text = "Your answer: " + transcribedText;
 
-            await scoreAnswer(transcribedText);
-
-            // Enviar la transcripción a ChatGPT para obtener la pregunta imaginativa
+            await scoreAnswer(transcribedText); // Enviar la transcripción a ChatGPT para obtener la pregunta imaginativa
 
             if (scores.Count > 0 && scores.Last() <= 7)
             {
@@ -94,10 +92,8 @@ namespace Samples.Whisper
                 conversation.talking = true;
                 contadorMusica++;
                 audioManager.changeTrack(contadorMusica);
-                await Task.Delay(3000);
-                resetTvtTexts();
                 StartCoroutine(questionCountdown.UpdateTime());
-                await Task.Delay(15000);
+                await Task.Delay(20000);
                 await GenerateImaginativeQuestion(transcribedText, QuestionMode.ASK_AGAIN);
                 Debug.Log("BAD, TRY AGAIN");
 
@@ -114,10 +110,9 @@ namespace Samples.Whisper
 
                 if (drawingProgress.GetDrawnObjects() < 4)
                 {
-                    await Task.Delay(3000);
-                    resetTvtTexts();
+                    askedAlready = false;
                     questionTvText.text = "Question: (Please look arond to find an object)";
-                }  
+                }
             }
         }
 
@@ -186,11 +181,12 @@ namespace Samples.Whisper
             string text = chatResponse.Content;
             question = text;
             questionTvText.text = "Question: " + text;
+            scoreTvText.text = "Score: ";
             tts.texttospeech(text);
             conversation.listening = true;
             }
 
-            answerTvText.text = "Your answer: (Press A to record)";
+            answerTvText.text = "Your answer: (Hold A to record)";
 
         }
 
