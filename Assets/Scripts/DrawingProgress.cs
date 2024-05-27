@@ -10,10 +10,7 @@ namespace Scripts.DrawingProgress
     {
 
         public GameObject[] drawings;
-        public float spawnInterval = 5f;
-        private float timer = 0f;
         public int index;
-        private bool create = false;
         private Conversation.Conversation conversation;
 
         void Start()

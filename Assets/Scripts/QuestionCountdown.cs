@@ -23,7 +23,6 @@ public class QuestionCountdown : MonoBehaviour
 
     public IEnumerator UpdateTime ()
     {
-        print("HERE");
         while (countdownTime > 0 || questionReady)
         {
             yield return new WaitForSeconds(1);

@@ -50,6 +50,7 @@ namespace Samples.Whisper
         public Conversation conversation;
         public AudioManager audioManager;
         public int contadorMusica;
+        public Endgamecanvas endgamecanvas;
 
         private async void Start()
         {
@@ -274,6 +275,7 @@ namespace Samples.Whisper
                 conversation.soBad_v++;
                 if(conversation.soBad_v == 3)
                 {
+                    endgamecanvas.razon = 2;
                     conversation.playing = false;
                 }
             }else if(score >= 4 && score <= 7)

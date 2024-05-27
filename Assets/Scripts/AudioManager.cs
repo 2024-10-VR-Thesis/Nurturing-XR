@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Threading.Tasks;
+using Scripts.Conversation;
 public class AudioManager : MonoBehaviour
 {
     [SerializeField] AudioSource musicSource;
@@ -13,6 +14,11 @@ public class AudioManager : MonoBehaviour
     public AudioClip midChangeMusic;
     public AudioClip stressedChangeMusic;
     public AudioClip tutorial;
+    public AudioClip perderPorTiempo;
+    public AudioClip perderPreguntas;
+    public AudioClip ganar;
+    public Conversation conversation;
+
     // Start is called before the first frame update
     async void Start()
     {
@@ -32,9 +38,28 @@ public class AudioManager : MonoBehaviour
             musicSource.Play();
         }
     }
+    public async void endgameVoice(int track)
+    {
+        musicSource.Stop();
+        musicSource2.Stop();
+        await Task.Delay(3000);
+        if (track == 0)
+        {
+            musicSource.clip = ganar;
+        }
+        else if (track == 1)
+        {
+            musicSource.clip = perderPorTiempo;
+        }
+        else
+        {
+            musicSource.clip = perderPreguntas;
+        }
+
+        musicSource.Play();
+    }
     public async void changeTrack(int cont)
     {
-
         if (cont <= 0)
         {
             if (musicSource.clip != backgroundMusic)
