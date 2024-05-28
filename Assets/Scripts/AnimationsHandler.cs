@@ -6,8 +6,6 @@ using UnityEngine.SocialPlatforms.Impl;
 using Samples.Whisper;
 using System.Linq;
 
-
-
     public class AnimationsHandler : MonoBehaviour
 {
     Animator anim;
@@ -22,33 +20,32 @@ using System.Linq;
     {
         anim = this.GetComponent<Animator>();
         conversation = GetComponent<Conversation>();
-
     }
 
     public void setRating(int rating)
     {
-
-
-
-        if (rating <= 7) {
+        if(rating > 7)
+        {
             if (conversation.soBad_v > 0)
             {
                 conversation.soBad_v--;
-                anim.SetInteger("SoBad_v", anim.GetInteger("SoBad_v") -1 );
-            } else if (conversation.bad_v > 0)
+                anim.SetInteger("SoBad_v", anim.GetInteger("SoBad_v") - 1);
+            }
+            else if (conversation.bad_v > 0)
             {
                 conversation.bad_v--;
                 anim.SetInteger("Bad_v", anim.GetInteger("Bad_v") - 1);
             }
-        } else if (rating < 4) {
+        }else if (rating < 4)
+        {
             conversation.soBad_v++;
             anim.SetInteger("SoBad_v", anim.GetInteger("SoBad_v") + 1);
-        } else
+        }
+        else
         {
             conversation.bad_v++;
             anim.SetInteger("Bad_v", anim.GetInteger("Bad_v") + 1);
         }
-
     }
 
     public void setBooleans()
