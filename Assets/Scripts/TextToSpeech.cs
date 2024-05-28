@@ -65,7 +65,8 @@ namespace Scripts.TexToSpeech
             audioSource.Play();
 
             await Task.Delay((int)(clip.length * 1000)); // Convert clip length from seconds to milliseconds
-            conversation.talking = false;   
+            conversation.talking = false;
+            conversation.listening = true;
         }
         
         if (tutorial)
