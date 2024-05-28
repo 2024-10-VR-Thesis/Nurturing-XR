@@ -17,8 +17,6 @@ using System;
 using Unity.VisualScripting;
 using System.Security.Cryptography;
 using Scripts.Conversation;
-using OpenAI;
-using System.Threading.Tasks;
 using TMPro;
 
 namespace Samples.Whisper
@@ -50,7 +48,7 @@ namespace Samples.Whisper
         public Conversation conversation;
         public AudioManager audioManager;
         public int contadorMusica;
-        public Endgamecanvas endgamecanvas;
+        public EndGame endGame;
         public bool askedAlready = false;
 
         private void Start()
@@ -77,41 +75,43 @@ namespace Samples.Whisper
             Microphone.End(null);
             conversation.listening = false;
 #endif
-
-            byte[] data = SaveWav.Save(fileName, clip);
-
-            // Obtener la transcripción del audio
-            string transcribedText = await GetAudioTranscription(data);
-            answerTvText.text = "Your answer: " + transcribedText;
-
-            await scoreAnswer(transcribedText); // Enviar la transcripción a ChatGPT para obtener la pregunta imaginativa
-
-            if (scores.Count > 0 && scores.Last() <= 7)
+            if (conversation.playing)
             {
-                scoreTvText.text += ", Try again!"; 
-                conversation.talking = true;
-                contadorMusica++;
-                audioManager.changeTrack(contadorMusica);
-                StartCoroutine(questionCountdown.UpdateTime());
-                await Task.Delay(20000);
-                await GenerateImaginativeQuestion(transcribedText, QuestionMode.ASK_AGAIN);
-                Debug.Log("BAD, TRY AGAIN");
+                byte[] data = SaveWav.Save(fileName, clip);
 
-            }
-            else if (scores.Count > 0 && scores.Last() > 7)
-            {
-                scoreTvText.text += ", Good answer!";
+                // Obtener la transcripción del audio
+                string transcribedText = await GetAudioTranscription(data);
+                answerTvText.text = "Your answer: " + transcribedText;
 
-                drawingProgress.increaseIndex();
+                await scoreAnswer(transcribedText); // Enviar la transcripción a ChatGPT para obtener la pregunta imaginativa
 
-                messages.Clear();
-                contadorMusica = 0;
-                audioManager.changeTrack(contadorMusica); // TODO: handle win case
-
-                if (drawingProgress.GetDrawnObjects() < 4)
+                if (scores.Count > 0 && scores.Last() <= 7)
                 {
-                    askedAlready = false;
-                    questionTvText.text = "Question: (Please look arond to find an object)";
+                    scoreTvText.text += ", Try again!"; 
+                    conversation.talking = true;
+                    contadorMusica++;
+                    audioManager.changeTrack(contadorMusica);
+                    StartCoroutine(questionCountdown.UpdateTime());
+                    await Task.Delay(20000);
+                    await GenerateImaginativeQuestion(transcribedText, QuestionMode.ASK_AGAIN);
+                    Debug.Log("BAD, TRY AGAIN");
+
+                }
+                else if (scores.Count > 0 && scores.Last() > 7)
+                {
+                    scoreTvText.text += ", Good answer!";
+
+                    drawingProgress.increaseIndex();
+
+                    messages.Clear();
+                    contadorMusica = 0;
+                    audioManager.changeTrack(contadorMusica); // TODO: handle win case
+
+                    if (drawingProgress.GetDrawnObjects() < 4)
+                    {
+                        askedAlready = false;
+                        questionTvText.text = "Question: (Please look arond to find an object)";
+                    }
                 }
             }
         }
@@ -132,7 +132,7 @@ namespace Samples.Whisper
         }
 
 
-        private async Task<int> ExtractRatingFromResponse(string responseText)
+        private int ExtractRatingFromResponse(string responseText)
         {
             Match match = Regex.Match(responseText, @"\d+");
 
@@ -180,8 +180,8 @@ namespace Samples.Whisper
             messages.Add(chatResponse);
             string text = chatResponse.Content;
             question = text;
-            questionTvText.text = "Question: " + text;
-            scoreTvText.text = "Score: ";
+            questionTvText.text = "Question: " + text + (mode == QuestionMode.OBJECT ? " [" + transcribedText + "]" : ""); // trasncribedText es objeto
+                scoreTvText.text = "Score: ";
             tts.texttospeech(text);
             conversation.listening = true;
             }
@@ -219,48 +219,60 @@ namespace Samples.Whisper
 
         private async Task scoreAnswer(string transcribedAnswer)
         {
-            Debug.Log("--------------------LLEGO SCORE------------------------");
-            ChatMessage newMessage = new ChatMessage();
-            var fullScorePrompt = scorePrompt;
-            var answer = transcribedAnswer;
-            fullScorePrompt += "Question: " + question + ". Answer: " + answer;
-            newMessage.Content = fullScorePrompt;
-            newMessage.Role = "user";
-            messages.Add(newMessage);
-
-            requestAI = new CreateChatCompletionRequest();
-            requestAI.Messages = messages;
-            requestAI.Model = "gpt-3.5-turbo";
-
-            var aiResponse = await openAI.CreateChatCompletion(requestAI);
-
-            if (aiResponse.Choices != null && aiResponse.Choices.Count > 0)
+            int rating = AverageScore();
+            try
             {
-                var chatResponse = aiResponse.Choices[0].Message;
-                string text = chatResponse.Content;
-                int rating = await ExtractRatingFromResponse(text);
+                Debug.Log("--------------------LLEGO SCORE------------------------");
+                ChatMessage newMessage = new ChatMessage();
+                var fullScorePrompt = scorePrompt;
+                var answer = transcribedAnswer;
+                fullScorePrompt += "Question: " + question + ". Answer: " + answer;
+                newMessage.Content = fullScorePrompt;
+                newMessage.Role = "user";
+                messages.Add(newMessage);
 
-                if (rating == -1)
+                requestAI = new CreateChatCompletionRequest();
+                requestAI.Messages = messages;
+                requestAI.Model = "gpt-3.5-turbo";
+
+                var aiResponse = await openAI.CreateChatCompletion(requestAI);
+
+                if (aiResponse.Choices != null && aiResponse.Choices.Count > 0)
                 {
-                    if (scores.Count >= 1)
+                    var chatResponse = aiResponse.Choices[0].Message;
+                    string text = chatResponse.Content;
+                    rating = ExtractRatingFromResponse(text);
+
+                    if (rating == -1)
                     {
-                        List<double> provisional = scores.Select(x => (double)x).ToList();
-                        rating = (int)Math.Floor(provisional.Average());
-                    }
-                    else
-                    {
-                        rating = 1;
+                        rating = AverageScore();
                     }
                 }
-                scoreTvText.text = $"Score: {rating}/10";
-                controllAnswersValues(rating);
-                scores.Add(rating);
+            }
+            catch (Exception ex)
+            {
+                Debug.Log(ex.Message);
+            }
 
-                animationsHandler.setRating(rating);
+            scoreTvText.text = $"Score: {rating}/10";
+            controllAnswersValues(rating);
+            scores.Add(rating);
 
-                Debug.Log("Calificación obtenida: " + scores.Last());
+            animationsHandler.setRating(rating);
 
-                //messages.Clear()
+            Debug.Log("Calificación obtenida: " + scores.Last());
+        }
+
+        private int AverageScore()
+        {
+            if (scores.Count >= 1)
+            {
+                int promedio = (int)Math.Floor((Math.Round(scores.Average(), 1)));
+                return promedio;
+            }
+            else
+            {
+                return 1;
             }
         }
 
@@ -271,7 +283,7 @@ namespace Samples.Whisper
                 conversation.soBad_v++;
                 if(conversation.soBad_v == 3)
                 {
-                    endgamecanvas.razon = 2;
+                    endGame.razon = 2;
                     conversation.playing = false;
                 }
             }else if(score >= 4 && score <= 7)

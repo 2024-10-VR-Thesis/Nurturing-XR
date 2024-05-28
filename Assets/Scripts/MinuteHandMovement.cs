@@ -20,7 +20,7 @@ public class MinuteHandMovement : MonoBehaviour
 
     public TMP_Text questionTvText;
 
-    public Endgamecanvas endgamecanvas;
+    public EndGame endGame;
 
     private void Start()
     {
@@ -37,7 +37,7 @@ public class MinuteHandMovement : MonoBehaviour
         }
         if(elapsedTime >= durationSeconds)
         {
-            endgamecanvas.razon = 1;
+            endGame.razon = 1;
             conversation.playing = false;
         }
     }

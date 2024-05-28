@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Threading.Tasks;
-using Scripts.Conversation;
 public class AudioManager : MonoBehaviour
 {
     [SerializeField] AudioSource musicSource;
@@ -32,7 +31,7 @@ public class AudioManager : MonoBehaviour
     void Update()
     {
 
-        if (!musicSource.isPlaying && musicSource.clip != tutorial)
+        if (!musicSource.isPlaying && musicSource.clip != tutorial && musicSource.clip != ganar && musicSource.clip != perderPorTiempo && musicSource.clip != perderPreguntas)
         {
             musicSource.Play();
         }
@@ -54,7 +53,7 @@ public class AudioManager : MonoBehaviour
         {
             musicSource.clip = perderPreguntas;
         }
-
+        //musicSource.loop = false;
         musicSource.Play();
     }
     public async void changeTrack(int cont)
@@ -78,7 +77,7 @@ public class AudioManager : MonoBehaviour
             await Task.Delay(3500);
             musicSource.clip = midMusic;
             musicSource.Play();
-            musicSource2.Stop() ;
+            musicSource2.Stop();
         }
         else
         {
