@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "com.readyplayerme.core": "https://github.com/readyplayerme/rpm-unity-sdk-core.git#v6.2.1",
+    "com.readyplayerme.core": "https://github.com/readyplayerme/rpm-unity-sdk-core.git#v6.2.4",
     "com.srcnalt.openai-unity": "https://github.com/srcnalt/OpenAI-Unity.git",
     "com.unity.collab-proxy": "2.0.5",
     "com.unity.ide.rider": "3.0.24",
@@ -12,7 +12,11 @@
     "com.unity.timeline": "1.7.5",
     "com.unity.ugui": "1.0.0",
     "com.unity.visualscripting": "1.8.0",
+    "com.unity.xr.arfoundation": "5.1.4",
+    "com.unity.xr.interaction.toolkit": "3.0.3",
     "com.unity.xr.management": "4.4.1",
+    "com.unity.xr.meta-openxr": "1.0.1",
+    "com.unity.xr.openxr": "1.8.2",
     "com.valvesoftware.unity.openvr": "file:../Assets/SteamVR/OpenVRUnityXRPackage/Editor/com.valvesoftware.unity.openvr-1.2.1.tgz",
     "com.unity.modules.ai": "1.0.0",
     "com.unity.modules.androidjni": "1.0.0",

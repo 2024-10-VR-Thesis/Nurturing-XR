@@ -42,6 +42,8 @@ namespace Samples.Whisper
         private string question;
         public Conversation conversation;
         public SteamVR_Action_Boolean triggerAction;
+        public int contadorMusica;
+        public AudioManager audioManager;
 
 
         private void Start()
@@ -50,6 +52,7 @@ namespace Samples.Whisper
             //GenerateImaginativeQuestion("Pillow", QuestionMode.OBJECT);
             //Debug.Log("Inicio");
             scores.Add(8);
+            contadorMusica = 0;
         }
 
         public void StartRecording()
@@ -81,11 +84,15 @@ namespace Samples.Whisper
                 await GenerateImaginativeQuestion(transcribedText, QuestionMode.ASK_AGAIN);
                 conversation.listening = false;
                 Debug.Log("BAD, TRY AGAIN");
+                contadorMusica++;
+                audioManager.changeTrack(contadorMusica);
             }
             else if (scores.Count > 0 && scores.Last() > 7)
             {
                 messages.Clear();
                 conversation.listening = false;
+                contadorMusica = 0;
+                audioManager.changeTrack(contadorMusica);               
             }
 
         }
