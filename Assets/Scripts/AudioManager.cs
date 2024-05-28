@@ -17,7 +17,6 @@ public class AudioManager : MonoBehaviour
     public AudioClip perderPorTiempo;
     public AudioClip perderPreguntas;
     public AudioClip ganar;
-    public Conversation conversation;
 
     // Start is called before the first frame update
     async void Start()
