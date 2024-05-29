@@ -88,7 +88,6 @@ namespace Samples.Whisper
                 if (scores.Count > 0 && scores.Last() <= 7)
                 {
                     scoreTvText.text += ", Try again!";
-                    
                     conversation.talking = true;
                     contadorMusica++;
                     audioManager.changeTrack(contadorMusica);
@@ -150,7 +149,7 @@ namespace Samples.Whisper
         public async Task GenerateImaginativeQuestion(string transcribedText, QuestionMode mode) //no es necesariamente transcripcion, tambien es objeto
         {
             Debug.Log("--------------------LLEGO PREGUNTA------------------------");
-
+            Debug.Log(transcribedText);
             ChatMessage newMessage = new ChatMessage();
             //newMessage.Content = transcribedText;
             newMessage.Role = "user";
@@ -184,6 +183,7 @@ namespace Samples.Whisper
                 questionTvText.text = "Question: " + text + (mode == QuestionMode.OBJECT ? " [" + transcribedText + "]" : ""); // trasncribedText es objeto
                 scoreTvText.text = "Score: ";
                 tts.texttospeech(text);
+                conversation.listening = true;
             }
 
             answerTvText.text = "Your answer: (Hold A to record)";
@@ -204,17 +204,7 @@ namespace Samples.Whisper
                 EndRecording();
             }
 
-            if (OVRInput.GetDown(OVRInput.RawButton.A) && conversation.listening)
-            {
-                Debug.Log("Controller button pressed (Start Recording)");
-                StartRecording();
-            }
-            else if (OVRInput.GetUp(OVRInput.RawButton.A) && conversation.listening)
-            {
-                Debug.Log("Controller button released (End Recording)");
-                await Task.Delay(1000);
-                EndRecording();
-            }
+
         }
 
         private async Task scoreAnswer(string transcribedAnswer)
@@ -254,10 +244,11 @@ namespace Samples.Whisper
                 Debug.Log(ex.Message);
             }
 
-            animationsHandler.setRating(rating);
             scoreTvText.text = $"Score: {rating}/10";
             controllAnswersValues(rating);
             scores.Add(rating);
+
+            animationsHandler.setRating(rating);
 
             Debug.Log("Calificación obtenida: " + scores.Last());
         }
