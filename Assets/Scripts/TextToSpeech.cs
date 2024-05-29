@@ -62,11 +62,14 @@ namespace Scripts.TexToSpeech
             while (!op.isDone) await Task.Yield();
             var clip = DownloadHandlerAudioClip.GetContent(www);
             audioSource.clip = clip;
+            //conversation.talking = true;
             audioSource.Play();
+            //conversation.listening = true;
 
             await Task.Delay((int)(clip.length * 1000)); // Convert clip length from seconds to milliseconds
-            conversation.talking = false;   
-        }
+            
+            conversation.talking = false;
+            }
         
         if (tutorial)
         {

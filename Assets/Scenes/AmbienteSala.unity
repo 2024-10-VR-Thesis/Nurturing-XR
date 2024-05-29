@@ -3642,7 +3642,7 @@ Animator:
   m_GameObject: {fileID: 1147974854}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: e343dd07a54d2b04c9828566ca827eab, type: 3}
-  m_Controller: {fileID: 9100000, guid: 05543d516b97f7a4cbed316ab7ff0b94, type: 2}
+  m_Controller: {fileID: 9100000, guid: 578ed7faf63d17f458b074a52138ad7c, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -3817,7 +3817,7 @@ MonoBehaviour:
   conversation: {fileID: 1147974862}
   audioManager: {fileID: 1937966724}
   contadorMusica: 0
-  endgamecanvas: {fileID: 0}
+  endGame: {fileID: 1414447938}
   askedAlready: 0
 --- !u!114 &1147974862
 MonoBehaviour:
@@ -6677,10 +6677,9 @@ MonoBehaviour:
   midChangeMusic: {fileID: 8300000, guid: f4d3a5622dbec7d448c56c025ab401bc, type: 3}
   stressedChangeMusic: {fileID: 8300000, guid: 8ef89f5ea9e5d4042a86944f48a2c783, type: 3}
   tutorial: {fileID: 8300000, guid: b2583c7f7e49d9347b711a9d1ee8ba5b, type: 3}
-  perderPorTiempo: {fileID: 0}
-  perderPreguntas: {fileID: 0}
-  ganar: {fileID: 0}
-  conversation: {fileID: 0}
+  perderPorTiempo: {fileID: 8300000, guid: ae87581c139d631499d752a76cb78d57, type: 3}
+  perderPreguntas: {fileID: 8300000, guid: 4234f0830be6b7641b4bca5909defe07, type: 3}
+  ganar: {fileID: 8300000, guid: 5a7b8d1220e21624b83711352f89f251, type: 3}
 --- !u!82 &1937966725
 AudioSource:
   m_ObjectHideFlags: 0
@@ -7270,6 +7269,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7044612910906223497, guid: 6af12f369ed4a4acb81050cb87217c9e,
+        type: 3}
+      propertyPath: endGame
+      value: 
+      objectReference: {fileID: 1414447938}
+    - target: {fileID: 7044612910906223497, guid: 6af12f369ed4a4acb81050cb87217c9e,
+        type: 3}
+      propertyPath: conversation
+      value: 
+      objectReference: {fileID: 1147974862}
     - target: {fileID: 7044612910906223497, guid: 6af12f369ed4a4acb81050cb87217c9e,
         type: 3}
       propertyPath: endgamecanvas
