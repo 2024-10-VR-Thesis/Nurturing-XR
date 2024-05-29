@@ -87,8 +87,7 @@ namespace Samples.Whisper
 
                 if (scores.Count > 0 && scores.Last() <= 7)
                 {
-                    scoreTvText.text += ", Try again!";
-                    
+                    scoreTvText.text += ", Try again!"; 
                     conversation.talking = true;
                     contadorMusica++;
                     audioManager.changeTrack(contadorMusica);
@@ -150,20 +149,20 @@ namespace Samples.Whisper
         public async Task GenerateImaginativeQuestion(string transcribedText, QuestionMode mode) //no es necesariamente transcripcion, tambien es objeto
         {
             Debug.Log("--------------------LLEGO PREGUNTA------------------------");
-
+           
             ChatMessage newMessage = new ChatMessage();
             //newMessage.Content = transcribedText;
             newMessage.Role = "user";
             var questionPrompt = prompt;
             if (mode == QuestionMode.ASK_AGAIN)
             {
-                var previousAnswer = transcribedText;
-                questionPrompt += "Previous answer: " + previousAnswer;
+            var previousAnswer = transcribedText;
+            questionPrompt += "Previous answer: " + previousAnswer;
             }
             else
             {
-                var objeto = transcribedText;
-                questionPrompt += "Object: " + objeto;
+            var objeto = transcribedText;
+            questionPrompt += "Object: " + objeto;
             }
 
             newMessage.Content = questionPrompt;
@@ -177,13 +176,13 @@ namespace Samples.Whisper
 
             if (aiResponse.Choices != null && aiResponse.Choices.Count > 0)
             {
-                var chatResponse = aiResponse.Choices[0].Message;
-                messages.Add(chatResponse);
-                string text = chatResponse.Content;
-                question = text;
-                questionTvText.text = "Question: " + text + (mode == QuestionMode.OBJECT ? " [" + transcribedText + "]" : ""); // trasncribedText es objeto
+            var chatResponse = aiResponse.Choices[0].Message;
+            messages.Add(chatResponse);
+            string text = chatResponse.Content;
+            question = text;
+            questionTvText.text = "Question: " + text + (mode == QuestionMode.OBJECT ? " [" + transcribedText + "]" : ""); // trasncribedText es objeto
                 scoreTvText.text = "Score: ";
-                tts.texttospeech(text);
+            tts.texttospeech(text);
             }
 
             answerTvText.text = "Your answer: (Hold A to record)";
@@ -254,10 +253,11 @@ namespace Samples.Whisper
                 Debug.Log(ex.Message);
             }
 
-            animationsHandler.setRating(rating);
             scoreTvText.text = $"Score: {rating}/10";
             controllAnswersValues(rating);
             scores.Add(rating);
+
+            animationsHandler.setRating(rating);
 
             Debug.Log("Calificación obtenida: " + scores.Last());
         }
@@ -277,25 +277,23 @@ namespace Samples.Whisper
 
         public void controllAnswersValues(double score)
         {
-            if (score < 4)
+           if(score < 4)
             {
                 conversation.soBad_v++;
-                if (conversation.soBad_v == 3)
+                if(conversation.soBad_v == 3)
                 {
                     endGame.razon = 2;
                     conversation.playing = false;
                 }
-            }
-            else if (score >= 4 && score <= 7)
+            }else if(score >= 4 && score <= 7)
             {
                 conversation.bad_v++;
-                if (conversation.bad_v == 2)
+                if(conversation.bad_v == 2)
                 {
                     conversation.soBad_v++;
                     conversation.bad_v = 0;
                 }
-            }
-            else if (score > 7)
+            }else if (score > 7)
             {
                 if (conversation.soBad_v > 0) { conversation.soBad_v--; }
                 else if (conversation.bad_v > 0) { conversation.bad_v--; }
@@ -310,8 +308,7 @@ namespace Samples.Whisper
             OBJECT
         }
 
-        private void resetTvtTexts()
-        {
+        private void resetTvtTexts() {
             questionTvText.text = "Question: ";
             answerTvText.text = "Your answer: ";
             scoreTvText.text = "Score: ";
