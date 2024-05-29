@@ -34,7 +34,10 @@ public class EndGame : MonoBehaviour
         {
             endPlayed++;
             audio.endgameVoice(razon);
-            double promedio = Math.Round(whisper.scores.Average(), 2);
+            double promedio = 0;
+            if (whisper.scores.Count > 0){
+                promedio = Math.Round(whisper.scores.Average(), 2);
+            }
             await Task.Delay(5000);
             DeleteAllTexts();
             endgameTvText.text = "The End \n  \n Your score average was: " + promedio;

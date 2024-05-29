@@ -7,7 +7,7 @@ using TMPro;
 
 public class MinuteHandMovement : MonoBehaviour
 {
-    Conversation conversation;
+    public Conversation conversation;
     public float durationMinutes;
 
     private float rotationSpeed;

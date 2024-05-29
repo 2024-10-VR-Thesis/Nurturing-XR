@@ -3356,6 +3356,34 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.0983843, y: 0.07923515, z: 2.2519985e-15}
   m_Center: {x: 0.009574557, y: 0.000028213486, z: 0.00013093946}
+--- !u!83 &1186957689
+AudioClip:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_LoadType: 0
+  m_Channels: 0
+  m_Frequency: 0
+  m_BitsPerSample: 0
+  m_Length: 0
+  m_IsTrackerFormat: 0
+  m_Ambisonic: 0
+  m_SubsoundIndex: 0
+  m_PreloadAudioData: 1
+  m_LoadInBackground: 0
+  m_Legacy3D: 0
+  m_Resource:
+    m_Source: 
+    m_Offset: 0
+    m_Size: 0
+  m_CompressionFormat: 0
+  m_EditorResource:
+    m_Source: 
+    m_Offset: 0
+    m_Size: 0
+  m_EditorCompressionFormat: 0
 --- !u!1001 &1234029123
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4975,34 +5003,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 05ff1b86f394ed848adf95579f32d37c, type: 3}
---- !u!83 &1697803736
-AudioClip:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_LoadType: 0
-  m_Channels: 0
-  m_Frequency: 0
-  m_BitsPerSample: 0
-  m_Length: 0
-  m_IsTrackerFormat: 0
-  m_Ambisonic: 0
-  m_SubsoundIndex: 0
-  m_PreloadAudioData: 1
-  m_LoadInBackground: 0
-  m_Legacy3D: 0
-  m_Resource:
-    m_Source: 
-    m_Offset: 0
-    m_Size: 0
-  m_CompressionFormat: 0
-  m_EditorResource:
-    m_Source: 
-    m_Offset: 0
-    m_Size: 0
-  m_EditorCompressionFormat: 0
 --- !u!1001 &1744476841
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5335,7 +5335,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 1697803736}
+  m_audioClip: {fileID: 1186957689}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -5464,7 +5464,7 @@ MonoBehaviour:
   conversation: {fileID: 1798514614}
   audioManager: {fileID: 1937966724}
   contadorMusica: 0
-  endGame: {fileID: 0}
+  endGame: {fileID: 649738892}
   askedAlready: 0
 --- !u!114 &1798514614
 MonoBehaviour:
@@ -6108,9 +6108,9 @@ MonoBehaviour:
   midChangeMusic: {fileID: 8300000, guid: f4d3a5622dbec7d448c56c025ab401bc, type: 3}
   stressedChangeMusic: {fileID: 8300000, guid: 8ef89f5ea9e5d4042a86944f48a2c783, type: 3}
   tutorial: {fileID: 8300000, guid: 5d8edf96167ff72418d9e2d38485f9e3, type: 3}
-  perderPorTiempo: {fileID: 0}
-  perderPreguntas: {fileID: 0}
-  ganar: {fileID: 0}
+  perderPorTiempo: {fileID: 8300000, guid: 7bb650a8afaa10d47859c8a772350c52, type: 3}
+  perderPreguntas: {fileID: 8300000, guid: 4a8f3bd991b3b9b4694a6e852041b867, type: 3}
+  ganar: {fileID: 8300000, guid: 81a8f8d77bb929f47bac24e61eba4fe1, type: 3}
 --- !u!82 &1937966725
 AudioSource:
   m_ObjectHideFlags: 0
@@ -7378,10 +7378,10 @@ MonoBehaviour:
   m_IsTrackedAction:
     m_UseReference: 0
     m_Action:
-      m_Name: 
+      m_Name: Is Tracked
       m_Type: 1
       m_ExpectedControlType: 
-      m_Id: 
+      m_Id: eee3c16e-7a9d-4c6a-a0ba-0ab1c9fc5ac8
       m_Processors: 
       m_Interactions: 
       m_SingletonActionBindings: []
@@ -7479,10 +7479,10 @@ MonoBehaviour:
   m_UIScrollAction:
     m_UseReference: 0
     m_Action:
-      m_Name: 
+      m_Name: UI Scroll
       m_Type: 0
       m_ExpectedControlType: Vector2
-      m_Id: 
+      m_Id: d285a9f5-b45e-4877-911b-7faeac09f045
       m_Processors: 
       m_Interactions: 
       m_SingletonActionBindings: []
@@ -11656,6 +11656,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7044612910906223497, guid: 6af12f369ed4a4acb81050cb87217c9e,
+        type: 3}
+      propertyPath: endGame
+      value: 
+      objectReference: {fileID: 649738892}
+    - target: {fileID: 7044612910906223497, guid: 6af12f369ed4a4acb81050cb87217c9e,
+        type: 3}
+      propertyPath: conversation
+      value: 
+      objectReference: {fileID: 1798514614}
     - target: {fileID: 7044612910906223497, guid: 6af12f369ed4a4acb81050cb87217c9e,
         type: 3}
       propertyPath: questionTvText
