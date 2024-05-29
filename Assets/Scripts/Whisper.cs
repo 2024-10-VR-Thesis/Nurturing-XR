@@ -72,7 +72,7 @@ namespace Samples.Whisper
 
         public async void EndRecording()
         {
-
+            await Task.Delay(1000);
 #if !UNITY_WEBGL
             Microphone.End(null);
             conversation.listening = false;
@@ -89,14 +89,20 @@ namespace Samples.Whisper
 
                 if (scores.Count > 0 && scores.Last() <= 7)
                 {
-                    scoreTvText.text += ", Try again!";
+                    if (conversation.playing)
+                    {
+                        scoreTvText.text += ", Try again!";
+                    }
                     conversation.talking = true;
                     contadorMusica++;
                     audioManager.changeTrack(contadorMusica);
-                    StartCoroutine(questionCountdown.UpdateTime());
-                    await Task.Delay(20000);
-                    await GenerateImaginativeQuestion(transcribedText, QuestionMode.ASK_AGAIN);
-                    Debug.Log("BAD, TRY AGAIN");
+                    if (conversation.playing)
+                    {
+                        StartCoroutine(questionCountdown.UpdateTime());
+                        await Task.Delay(20000);
+                        await GenerateImaginativeQuestion(transcribedText, QuestionMode.ASK_AGAIN);
+                        Debug.Log("BAD, TRY AGAIN");
+                    }
 
                 }
                 else if (scores.Count > 0 && scores.Last() > 7)
@@ -109,7 +115,7 @@ namespace Samples.Whisper
                     contadorMusica = 0;
                     audioManager.changeTrack(contadorMusica); // TODO: handle win case
 
-                    if (drawingProgress.GetDrawnObjects() < 4)
+                    if (drawingProgress.GetDrawnObjects() < 4 && conversation.playing)
                     {
                         askedAlready = false;
                         questionTvText.text = "Question: (Please look arond to find an object)";
@@ -150,46 +156,49 @@ namespace Samples.Whisper
 
         public async Task GenerateImaginativeQuestion(string transcribedText, QuestionMode mode) //no es necesariamente transcripcion, tambien es objeto
         {
-            Debug.Log("--------------------LLEGO PREGUNTA------------------------");
-            Debug.Log(transcribedText);
-            ChatMessage newMessage = new ChatMessage();
-            //newMessage.Content = transcribedText;
-            newMessage.Role = "user";
-            var questionPrompt = prompt;
-            if (mode == QuestionMode.ASK_AGAIN)
+            if (conversation.playing)
             {
-                var previousAnswer = transcribedText;
-                questionPrompt += "Previous answer: " + previousAnswer;
+                Debug.Log("--------------------LLEGO PREGUNTA------------------------");
+
+                ChatMessage newMessage = new ChatMessage();
+                //newMessage.Content = transcribedText;
+                newMessage.Role = "user";
+                var questionPrompt = prompt;
+                if (mode == QuestionMode.ASK_AGAIN)
+                {
+                    var previousAnswer = transcribedText;
+                    questionPrompt += "Previous answer: " + previousAnswer;
+                }
+                else
+                {
+                    var objeto = transcribedText;
+                    questionPrompt += "Object: " + objeto;
+                }
+
+                newMessage.Content = questionPrompt;
+                messages.Add(newMessage);
+
+                requestAI = new CreateChatCompletionRequest();
+                requestAI.Messages = messages;
+                requestAI.Model = "gpt-3.5-turbo";
+
+                var aiResponse = await openAI.CreateChatCompletion(requestAI);
+
+                if (aiResponse.Choices != null && aiResponse.Choices.Count > 0)
+                {
+                    var chatResponse = aiResponse.Choices[0].Message;
+                    messages.Add(chatResponse);
+                    string text = chatResponse.Content;
+                    question = text;
+                    questionTvText.text = "Question: " + text + (mode == QuestionMode.OBJECT ? " [" + transcribedText + "]" : ""); // trasncribedText es objeto
+                    scoreTvText.text = "Score: ";
+                    conversation.talking = true;
+                    tts.texttospeech(text);
+                    conversation.listening = true;
+                }
+
+                answerTvText.text = "Your answer: (Hold A to record)";
             }
-            else
-            {
-                var objeto = transcribedText;
-                questionPrompt += "Object: " + objeto;
-            }
-
-            newMessage.Content = questionPrompt;
-            messages.Add(newMessage);
-
-            requestAI = new CreateChatCompletionRequest();
-            requestAI.Messages = messages;
-            requestAI.Model = "gpt-3.5-turbo";
-
-            var aiResponse = await openAI.CreateChatCompletion(requestAI);
-
-            if (aiResponse.Choices != null && aiResponse.Choices.Count > 0)
-            {
-                var chatResponse = aiResponse.Choices[0].Message;
-                messages.Add(chatResponse);
-                string text = chatResponse.Content;
-                question = text;
-                questionTvText.text = "Question: " + text + (mode == QuestionMode.OBJECT ? " [" + transcribedText + "]" : ""); // trasncribedText es objeto
-                scoreTvText.text = "Score: ";
-                tts.texttospeech(text);
-                conversation.listening = true;
-            }
-
-            answerTvText.text = "Your answer: (Hold A to record)";
-
         }
 
         async void Update()
@@ -219,7 +228,6 @@ namespace Samples.Whisper
 
 
         }
-
         private async Task scoreAnswer(string transcribedAnswer)
         {
             int rating = AverageScore();
@@ -256,7 +264,6 @@ namespace Samples.Whisper
             {
                 Debug.Log(ex.Message);
             }
-
             scoreTvText.text = $"Score: {rating}/10";
             controllAnswersValues(rating);
             scores.Add(rating);
