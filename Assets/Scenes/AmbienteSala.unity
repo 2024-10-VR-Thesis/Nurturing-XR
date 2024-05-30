@@ -641,7 +641,6 @@ GameObject:
   - component: {fileID: 289812895}
   - component: {fileID: 289812894}
   - component: {fileID: 289812893}
-  - component: {fileID: 289812896}
   m_Layer: 0
   m_Name: Question
   m_TagString: Untagged
@@ -802,19 +801,6 @@ RectTransform:
   m_AnchoredPosition: {x: 3.54, y: -0.3}
   m_SizeDelta: {x: 20, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &289812896
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 289812892}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 833d790173202dc4c87796bde417eb00, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  conversation: {fileID: 1147974862}
 --- !u!1001 &297105340
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2463,7 +2449,6 @@ GameObject:
   - component: {fileID: 728613969}
   - component: {fileID: 728613968}
   - component: {fileID: 728613967}
-  - component: {fileID: 728613970}
   m_Layer: 0
   m_Name: Score
   m_TagString: Untagged
@@ -2624,19 +2609,6 @@ RectTransform:
   m_AnchoredPosition: {x: 3.54, y: -1.25}
   m_SizeDelta: {x: 20, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &728613970
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 728613966}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 833d790173202dc4c87796bde417eb00, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  conversation: {fileID: 1147974862}
 --- !u!1 &743786431
 GameObject:
   m_ObjectHideFlags: 0
@@ -3868,7 +3840,6 @@ GameObject:
   - component: {fileID: 1209024639}
   - component: {fileID: 1209024638}
   - component: {fileID: 1209024637}
-  - component: {fileID: 1209024640}
   m_Layer: 0
   m_Name: Answer
   m_TagString: Untagged
@@ -4029,19 +4000,6 @@ RectTransform:
   m_AnchoredPosition: {x: 3.54, y: -0.77}
   m_SizeDelta: {x: 20, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1209024640
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1209024636}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 833d790173202dc4c87796bde417eb00, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  conversation: {fileID: 1147974862}
 --- !u!1001 &1234029123
 PrefabInstance:
   m_ObjectHideFlags: 0

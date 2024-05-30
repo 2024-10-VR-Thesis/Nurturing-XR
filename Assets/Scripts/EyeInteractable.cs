@@ -4,8 +4,6 @@ using Samples.Whisper;
 using Scripts.Conversation;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Diagnostics;
-using TMPro;
 using Scripts.DrawingProgress;
 
 [RequireComponent(typeof(Collider))]
