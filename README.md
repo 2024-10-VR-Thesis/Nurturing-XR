@@ -1,5 +1,5 @@
 # Nurturing-XR-Controlled Meta <img alt="meta logo" height="25" src="https://1000logos.net/wp-content/uploads/2021/10/logo-Meta-1536x864.png">
-Este repositorio incluye el código fuente para la versión en mabiente controlado del juego _Answering Anya_ desarrollado en Unity, orientado para dispositivos Meta Quest 3 y Meta Quest Pro.
+Este repositorio incluye el código fuente para la versión en mabiente controlado del juego _Answering Anya_ desarrollado en Unity, orientado para los dispositivos Meta Quest 3 y Meta Quest Pro.
 
 ## Instalación
 0. Descargar Unity y la versión del editor 2022.3.5f1
