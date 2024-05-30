@@ -13,7 +13,7 @@ Este repositorio incluye el código fuente para la versión en mabiente controla
 1. TODO
 2. TODO
 3. En Unity, iniciar el juego dando al botón de Play en la parte superior de la pantalla.
-
+<hr>
 <p align="center">
   <img width="129" alt="vive pro eye" title="VIVE Pro Eye" src="https://github.com/2024-10-XR-Thesis/Nurturing-XR-Controlled/assets/69609680/210a73c7-518c-4200-b8dc-32292fcf714c">
 </p>
