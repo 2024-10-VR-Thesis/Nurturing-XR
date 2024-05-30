@@ -6,8 +6,8 @@ Este repositorio incluye el código fuente para la versión en mabiente controla
 2. Descargar este repositorio localmente.
 3. Abrir el proyecto en Unity y esperar la descarga de paquetes.
 4. Configuración de credenciales:
-   1. Ir al archivo Assets/Scripts/TextToSpeech.cs, línea 53, e ingresar credenciales de Amazon Polly ([instrucciones](https://github.com/2024-10-XR-Thesis/.github/wiki/Instrucciones-Amazon-Polly)).
-   2. Desde el explorador de archivos, ir a Library/PackageCache/com.srcnalt.openai-unity@f7f501c076/Runtime/Configuration.cs, línea 23, e ingresar credenciales ([instrucciones](https://github.com/2024-10-XR-Thesis/.github/wiki/Instrucciones-OpenAI)).
+   1. Ir al archivo Assets/Scripts/TextToSpeech.cs e ingresar credenciales de Amazon Polly ([instrucciones](https://github.com/2024-10-XR-Thesis/.github/wiki/Instrucciones-Amazon-Polly)).
+   2. Desde el explorador de archivos, ir a Library/PackageCache/com.srcnalt.openai-unity@f7f501c076/Runtime/Configuration.cs e ingresar credenciales ([instrucciones](https://github.com/2024-10-XR-Thesis/.github/wiki/Instrucciones-OpenAI)).
 
 ## Ejecución
 1. Habilitar modo desarrollador en el dispositivo ([instrucciones](https://developer.oculus.com/documentation/native/android/mobile-device-setup/)).
