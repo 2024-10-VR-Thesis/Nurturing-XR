@@ -14,6 +14,8 @@ Este repositorio incluye el código fuente para la versión en mabiente controla
 2. Ingresar a Quest Link ([instrucciones](https://www.meta.com/help/quest/articles/headsets-and-accessories/oculus-link/set-up-link/)).
 3. En Unity, iniciar el juego dando al botón de Play en la parte superior de la pantalla.
 
+<hr>
+
 <p align="center">
   <img width="132" alt="meta quest 3" title="Meta Quest 3" src="https://github.com/2024-10-XR-Thesis/Nurturing-XR-Controlled/assets/69609680/8a43b9d7-6751-49a9-938b-d1f2d8767c26">
   <img width="152" alt="meta quest pro" title="Meta Quest Pro" src="https://github.com/2024-10-XR-Thesis/Nurturing-XR-Controlled/assets/69609680/ae6ac465-0986-46ce-bd55-5a1cd2e6623f">
