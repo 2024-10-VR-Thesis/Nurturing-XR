@@ -1,5 +1,5 @@
 # Nurturing-XR-Controlled
-Este repositorio incluye el código base para la versión en ambiente controlado del juego _Nurturing Anya_ hecho en Unity. Para más detalles sobre el juego, revisar la [documentación del proyecto](https://github.com/2024-10-XR-Thesis/.github/wiki).
+Este repositorio incluye el código fuente base para la versión en ambiente controlado del juego _Nurturing Anya_ hecho en Unity. Para más detalles sobre el juego, revisar la [documentación del proyecto](https://github.com/2024-10-XR-Thesis/.github/wiki).
 
 ## Dispositivos
 Esta versión del juego se encuentra disponible para las siguientes plataformas: HoloLens 2, Meta Quest 3, Meta Quest Pro y VIVE Pro Eye. Cada una cuenta con su propia rama que incluye la implementación específica para el dispositivo, junto con su proceso de instalación.
