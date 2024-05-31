@@ -34,17 +34,9 @@ public class EyeInteractable : MonoBehaviour
 
     private async Task HandleHoverAsync()
     {
-        if (!(conversation.talking || conversation.listening) && whisper.scores.Last() > 7 && !AskedAlready && gameStarted && !whisper.askedAlready)
+        if (!(conversation.talking || conversation.listening) && !AskedAlready && gameStarted && !whisper.askedAlready)
         {
             conversation.talking = true;
-            
-            lock (whisper.scores)
-            {
-                if (whisper.scores.Any())
-                {
-                    whisper.scores.RemoveAt(0);
-                }
-            }
 
             OnObjectHover?.Invoke(gameObject);
             AskedAlready = true;
