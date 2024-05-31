@@ -10,9 +10,9 @@ Este repositorio incluye el código fuente para la versión en ambiente controla
    2. OpenAI: ([instrucciones](https://github.com/2024-10-XR-Thesis/.github/wiki/Instrucciones-OpenAI)).
 
 ## Ejecución
-1. Habilitar modo desarrollador en el dispositivo ([instrucciones](https://developer.oculus.com/documentation/native/android/mobile-device-setup/)).
+1. Habilitar el modo desarrollador en el dispositivo ([instrucciones](https://developer.oculus.com/documentation/native/android/mobile-device-setup/)).
 2. Ingresar a Quest Link ([instrucciones](https://www.meta.com/help/quest/articles/headsets-and-accessories/oculus-link/set-up-link/)).
-3. En Unity, iniciar el juego dando al botón de Play en la parte superior de la pantalla.
+3. En Unity, iniciar el juego dando click al botón de Play en la parte superior de la pantalla.
 
 <hr>
 
