@@ -1,5 +1,5 @@
 # Nurturing-XR-Controlled HoloLens 2 <img alt="microsoft logo" height="25" src="https://cdn-icons-png.flaticon.com/512/732/732221.png">
-Este repositorio incluye el código fuente para la versión en mabiente controlado del juego _Answering Anya_ desarrollado en Unity, orientado para el dispositivo HoloLens 2.
+Este repositorio incluye el código fuente para la versión en ambiente controlado del juego _Answering Anya_ desarrollado en Unity, orientado para el dispositivo HoloLens 2.
 
 ## Instalación
 0. Descargar Unity y la versión del editor 2022.3.5f1.
@@ -11,10 +11,8 @@ Este repositorio incluye el código fuente para la versión en mabiente controla
 
 ## Ejecución
 1. TODO
-2. Correr el API de detección de objetos (ver readme de [este repositorio](https://github.com/2024-10-XR-Thesis/Object-Detection-API)).
-3. TODO
-4. TODO
-5. En Unity, iniciar el juego dando click al botón de Play en la parte superior de la pantalla.
+2. TODO
+3. En Unity, iniciar el juego dando click al botón de Play en la parte superior de la pantalla.
 
 <hr>
 
