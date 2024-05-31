@@ -1,18 +1,18 @@
 # Nurturing-XR-Controlled Meta <img alt="meta logo" height="25" src="https://1000logos.net/wp-content/uploads/2021/10/logo-Meta-1536x864.png">
-Este repositorio incluye el código fuente para la versión en mabiente controlado del juego _Answering Anya_ desarrollado en Unity, orientado para los dispositivos Meta Quest 3 y Meta Quest Pro.
+Este repositorio incluye el código fuente para la versión en ambiente controlado del juego _Answering Anya_ desarrollado en Unity, orientado para los dispositivos Meta Quest 3 y Meta Quest Pro.
 
 ## Instalación
-0. Descargar Unity y la versión del editor 2022.3.5f1
+0. Descargar Unity y la versión del editor 2022.3.5f1.
 2. Descargar este repositorio localmente.
 3. Abrir el proyecto en Unity y esperar la descarga de paquetes.
 4. Configuración de credenciales:
-   1. Amazon Polly: ([instrucciones](https://github.com/2024-10-XR-Thesis/.github/wiki/Instrucciones-Amazon-Polly)).
-   2. OpenAI: ([instrucciones](https://github.com/2024-10-XR-Thesis/.github/wiki/Instrucciones-OpenAI)).
+   1. Amazon Polly: [instrucciones](https://github.com/2024-10-XR-Thesis/.github/wiki/Instrucciones-Amazon-Polly).
+   2. OpenAI: [instrucciones](https://github.com/2024-10-XR-Thesis/.github/wiki/Instrucciones-OpenAI).
 
 ## Ejecución
-1. Habilitar modo desarrollador en el dispositivo ([instrucciones](https://developer.oculus.com/documentation/native/android/mobile-device-setup/)).
+1. Habilitar el modo desarrollador en el dispositivo ([instrucciones](https://developer.oculus.com/documentation/native/android/mobile-device-setup/)).
 2. Ingresar a Quest Link ([instrucciones](https://www.meta.com/help/quest/articles/headsets-and-accessories/oculus-link/set-up-link/)).
-3. En Unity, iniciar el juego dando al botón de Play en la parte superior de la pantalla.
+3. En Unity, iniciar el juego dando click al botón de Play en la parte superior de la pantalla.
 
 <hr>
 
