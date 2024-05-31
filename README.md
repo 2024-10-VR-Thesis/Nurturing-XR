@@ -2,17 +2,19 @@
 Este repositorio incluye el código fuente para la versión en mabiente controlado del juego _Answering Anya_ desarrollado en Unity, orientado para el dispositivo HoloLens 2.
 
 ## Instalación
-0. Descargar Unity y la versión del editor 2022.3.5f1
+0. Descargar Unity y la versión del editor 2022.3.5f1.
 2. Descargar este repositorio localmente.
 3. Abrir el proyecto en Unity y esperar la descarga de paquetes.
 4. Configuración de credenciales:
-   1. Amazon Polly: ([instrucciones](https://github.com/2024-10-XR-Thesis/.github/wiki/Instrucciones-Amazon-Polly)).
-   2. OpenAI: ([instrucciones](https://github.com/2024-10-XR-Thesis/.github/wiki/Instrucciones-OpenAI)).
+   1. Amazon Polly: [instrucciones](https://github.com/2024-10-XR-Thesis/.github/wiki/Instrucciones-Amazon-Polly).
+   2. OpenAI: [instrucciones](https://github.com/2024-10-XR-Thesis/.github/wiki/Instrucciones-OpenAI).
 
 ## Ejecución
 1. TODO
-2. TODO
-3. En Unity, iniciar el juego dando al botón de Play en la parte superior de la pantalla.
+2. Correr el API de detección de objetos (ver readme de [este repositorio](https://github.com/2024-10-XR-Thesis/Object-Detection-API)).
+3. TODO
+4. TODO
+5. En Unity, iniciar el juego dando click al botón de Play en la parte superior de la pantalla.
 
 <hr>
 
