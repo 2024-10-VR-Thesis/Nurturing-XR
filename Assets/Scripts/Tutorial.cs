@@ -14,11 +14,6 @@ public class DestroyObject : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /*
-        if (OVRInput.GetDown(OVRInput.Button.SecondaryIndexTrigger))
-        {
-            Destroy(this.gameObject);
-        }
-        */
+        
     }
 }

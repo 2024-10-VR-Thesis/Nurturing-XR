@@ -21,7 +21,6 @@ public class EyeTrackingIndicator : MonoBehaviour
     private LineRenderer lineRenderer;
     private bool askedAlready { get; set; }
 
-    //private List<EyeInteractable> eyeInteractables = new List<EyeInteractable>();
 
     // Start is called before the first frame update
     void Start()
@@ -56,28 +55,9 @@ public class EyeTrackingIndicator : MonoBehaviour
             if (hit.transform != null)
             {
                 var eyeInteractable = hit.transform.GetComponent<EyeInteractable>();
-                //eyeInteractables.Add(eyeInteractable);
                 eyeInteractable.IsHovered = true;
             }
         }
     }
-
-    /*
-    void UnSelect(bool clear = false)
-    {
-        Debug.Log(eyeInteractables.Count);
-        if (eyeInteractables.Count > 0) // Check if list has elements before iterating
-        {
-            foreach (var interactable in eyeInteractables)
-            {
-                interactable.IsHovered = false;
-            }
-        }
-        if (clear)
-        {
-            eyeInteractables.Clear();
-        }
-    }
-    */
 
 }

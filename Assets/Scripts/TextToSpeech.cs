@@ -22,7 +22,7 @@ namespace Scripts.TexToSpeech
 
         async void Start()
         {
-            // Cargar el archivo JSON desde Resources
+            // Carga el archivo JSON desde Resources
             TextAsset jsonTextFile = Resources.Load<TextAsset>("tutorial");
             if (jsonTextFile != null)
             {
@@ -49,7 +49,6 @@ namespace Scripts.TexToSpeech
 
         public async void texttospeech(string speak, bool tutorial = false)
         {
-            //conversation.talking = true;
             string speechCopy = speak;
             speak = null;
             var request = new SynthesizeSpeechRequest()
