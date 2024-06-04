@@ -1,4 +1,4 @@
-# Nurturing-XR-Controlled
+# Nurturing XR Controlled
 Este repositorio incluye el código fuente base para la versión en ambiente controlado del juego _Answering Anya_ desarrollado en Unity. Para más detalles sobre el juego, revisar la [documentación del proyecto](https://github.com/2024-10-XR-Thesis/.github/wiki/#documentación).
 
 ## Dispositivos
