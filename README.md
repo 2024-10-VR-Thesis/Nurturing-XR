@@ -1,4 +1,4 @@
-# Nurturing XR Controlled VIVE Pro Eye <img alt="htc logo" height="25" src="https://cdn.worldvectorlogo.com/logos/vive-2.svg">
+# Nurturing XR Controlled - VIVE Pro Eye <img alt="htc logo" height="25" src="https://cdn.worldvectorlogo.com/logos/vive-2.svg">
 Este repositorio incluye el código fuente para la versión en mabiente controlado del juego _Answering Anya_ desarrollado en Unity, orientado para el dispositivo VIVE Pro Eye.
 
 ## Instalación
