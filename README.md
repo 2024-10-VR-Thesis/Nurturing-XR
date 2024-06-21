@@ -10,9 +10,9 @@ Este repositorio incluye el código fuente para la versión en ambiente controla
    2. OpenAI: [instrucciones](https://github.com/2024-10-XR-Thesis/.github/wiki/Instrucciones-OpenAI-HoloLens).
 
 ## Ejecución
-1. Habilitar el modo desarrollador en el dispositivo [instrucciones](https://learn.microsoft.com/es-es/windows/mixed-reality/develop/advanced-concepts/using-visual-studio?tabs=hl2#enabling-developer-mode).
-2. Crear Build desde Unity [instrucciones](https://github.com/2024-10-XR-Thesis/.github/wiki/Instrucciones-Build).
-3. Depurar desde Visual Code [instrucciones](https://github.com/2024-10-XR-Thesis/.github/wiki/Instrucciones-Depurar).
+1. Habilitar el modo desarrollador en el dispositivo: [instrucciones](https://learn.microsoft.com/es-es/windows/mixed-reality/develop/advanced-concepts/using-visual-studio?tabs=hl2#enabling-developer-mode).
+2. Crear Build desde Unity: [instrucciones](https://github.com/2024-10-XR-Thesis/.github/wiki/Build-HoloLens2).
+3. Depurar desde Visual Code: [instrucciones](https://github.com/2024-10-XR-Thesis/.github/wiki/Instrucciones-Depuración).
 4. Ejecutar la aplicación desde las HoloLens 2.
 
 <hr>
